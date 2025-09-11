@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - IIIT Kota Canteen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/checkout.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Menu
+                </a>
+                <h1 class="header-title">
+                    <img src="/public/canteen-logo.jpg" alt="IIIT Kota Canteen" class="logo" onerror="this.style.display='none'">
+                    Checkout
+                </h1>
+            </div>
+            <div class="header-right">
+                <!-- User Authentication -->
+                <button id="signInBtn" class="sign-in-btn" style="display: none;">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
+                </button>
+                
+                <div id="userButton" class="user-button" style="display: none;">
+                    <div class="avatar">U</div>
+                    <span class="username">User</span>
+                    <i class="fas fa-chevron-down"></i>
+                    
+                    <div id="userDropdown" class="user-dropdown">
+                        <div class="user-info">
+                            <div class="avatar">U</div>
+                            <div class="user-details">
+                                <div class="username">User</div>
+                                <div class="user-email">user@example.com</div>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <button id="logoutBtn" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Sign Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="checkout-main">
+        <div class="checkout-container">
+            <!-- Order Summary -->
+            <div class="order-summary-section">
+                <h2 class="section-title">
+                    <i class="fas fa-shopping-cart"></i>
+                    Order Summary
+                </h2>
+                <div class="order-items" id="checkoutOrderItems">
+                    <!-- Order items will be populated here -->
+                </div>
+                <div class="order-total">
+                    <div class="total-breakdown">
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">₹0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Tax (5%):</span>
+                            <span id="tax">₹0.00</span>
+                        </div>
+                        <div class="total-row total-final">
+                            <span>Total:</span>
+                            <span id="finalTotal">₹0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Information -->
+            <div class="customer-info-section">
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i>
+                    Customer Information
+                </h2>
+                <form id="checkoutPageForm" class="checkout-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="checkoutCustomerName">
+                                <i class="fas fa-user"></i>
+                                Full Name *
+                            </label>
+                            <input type="text" id="checkoutCustomerName" name="customerName" required 
+                                   placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutCustomerPhone">
+                                <i class="fas fa-phone"></i>
+                                Phone Number *
+                            </label>
+                            <input type="tel" id="checkoutCustomerPhone" name="customerPhone" required 
+                                   placeholder="Enter your phone number">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="checkoutCustomerEmail">
+                                <i class="fas fa-envelope"></i>
+                                Email Address
+                            </label>
+                            <input type="email" id="checkoutCustomerEmail" name="customerEmail" 
+                                   placeholder="Enter your email (optional)">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutRoomNumber">
+                                <i class="fas fa-home"></i>
+                                Room Number
+                            </label>
+                            <input type="text" id="checkoutRoomNumber" name="roomNumber" 
+                                   placeholder="Hostel room number (if applicable)">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="checkoutSpecialInstructions">
+                            <i class="fas fa-sticky-note"></i>
+                            Special Instructions
+                        </label>
+                        <textarea id="checkoutSpecialInstructions" name="specialInstructions" 
+                                  rows="3" placeholder="Any special requests or dietary requirements..."></textarea>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="payment-section">
+                        <h3 class="section-subtitle">
+                            <i class="fas fa-credit-card"></i>
+                            Payment Method
+                        </h3>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="cash" checked>
+                                <div class="payment-option-content">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span>Cash on Pickup</span>
+                                </div>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="upi">
+                                <div class="payment-option-content">
+                                    <i class="fab fa-google-pay"></i>
+                                    <span>UPI Payment</span>
+                                </div>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="card">
+                                <div class="payment-option-content">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Card Payment</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="checkout-actions">
+                        <a href="index.html" class="btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Continue Shopping
+                        </a>
+                        <button type="submit" class="btn-primary place-order-btn">
+                            <i class="fas fa-check-circle"></i>
+                            Place Order
+                            <span class="order-total-btn" id="orderTotalBtn">₹0.00</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Processing your order...</p>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="success-message">
+        <i class="fas fa-check-circle"></i>
+        <span id="successText"></span>
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorMessage" class="error-message-toast">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="errorText"></span>
+    </div>
+
+    <script src="js/checkout.js"></script>
+</body>
+</html>

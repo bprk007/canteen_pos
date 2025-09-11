@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Canteen - POS System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">Campus Canteen</h1>
+                <div class="user-section">
+                    <div id="userButton" class="user-button" style="display: none;">
+                        <div class="avatar" id="userAvatar">
+                            <span id="userInitials"></span>
+                        </div>
+                        <div class="dropdown" id="userDropdown">
+                            <div class="dropdown-header">
+                                <div class="user-info">
+                                    <span id="username" class="username"></span>
+                                    <span id="userEmail" class="user-email"></span>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div id="manageMenuLink" class="dropdown-item" style="display: none;">
+                                <i class="fas fa-cog"></i>
+                                <span>Manage Menu</span>
+                            </div>
+                            <div id="ordersLink" class="dropdown-item" style="display: none;">
+                                <i class="fas fa-receipt"></i>
+                                <span>View Orders</span>
+                            </div>
+                            <div class="dropdown-divider" id="manageDivider" style="display: none;"></div>
+                            <div class="dropdown-item logout-item" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Log out</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="signInBtn" class="signin-btn">
+                        <i class="fas fa-user"></i>
+                        Sign In
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Menu Header -->
+        <section class="menu-header">
+            <div class="container">
+                <h2 class="menu-title">Menu</h2>
+                
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="searchInput" placeholder="Search for food items..." class="search-input">
+                    </div>
+                </div>
+
+                <!-- Category Tabs -->
+                <div class="category-tabs" id="categoryTabs">
+                    <!-- Categories will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Grid -->
+        <section class="menu-section">
+            <div class="container">
+                <div id="menuGrid" class="menu-grid">
+                    <!-- Menu items will be loaded here -->
+                </div>
+                <div id="loadingSpinner" class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span>Loading menu items...</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Order</h3>
+            <button id="closeCart" class="close-cart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-content">
+            <div id="cartItems" class="cart-items">
+                <!-- Cart items will be displayed here -->
+            </div>
+            <div class="cart-empty" id="cartEmpty">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Your cart is empty</p>
+                <small>Add some delicious items from our menu!</small>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Total: ₹<span id="cartTotal">0.00</span></span>
+            </div>
+            <div class="checkout-buttons">
+                <button id="quickCheckoutBtn" class="quick-checkout-btn">
+                    <i class="fas fa-bolt"></i>
+                    Quick Order
+                </button>
+                <a href="checkout.html" id="fullCheckoutBtn" class="full-checkout-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    Go to Checkout
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Cart Button -->
+    <button id="floatingCartBtn" class="floating-cart-btn" style="display: none;">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cartItemCount" class="cart-count">0</span>
+        <span id="cartTotalFloat" class="cart-total-text">₹0.00</span>
+    </button>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Checkout</h2>
+                <button class="modal-close" id="closeCheckoutModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-content">
+                    <div class="order-summary">
+                        <h3>Order Summary</h3>
+                        <div id="checkoutItems" class="checkout-items">
+                            <!-- Checkout items will be displayed here -->
+                        </div>
+                        <div class="checkout-total">
+                            <span>Total: ₹<span id="checkoutTotal">0.00</span></span>
+                        </div>
+                    </div>
+                    
+                    <div class="customer-info">
+                        <h3>Customer Information</h3>
+                        <form id="checkoutForm">
+                            <div class="form-group">
+                                <label for="customerName">Name</label>
+                                <input type="text" id="customerName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="customerPhone">Phone Number</label>
+                                <input type="tel" id="customerPhone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="specialInstructions">Special Instructions (Optional)</label>
+                                <textarea id="specialInstructions" rows="3" placeholder="Any special requests..."></textarea>
+                            </div>
+                            <button type="submit" class="place-order-btn">
+                                <i class="fas fa-check"></i>
+                                Place Order
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="success-message">
+        <i class="fas fa-check-circle"></i>
+        <span id="successText"></span>
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorMessage" class="error-message-toast">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="errorText"></span>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

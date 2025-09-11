@@ -1,0 +1,48 @@
+<!-- canteen/templates/orders_table.html -->
+<div class="table-container" id="ordersTableContainer" hx-get="/api/orders/table/" hx-trigger="load, every 5s, refresh" hx-target="#ordersTableContainer" hx-swap="outerHTML" hx-credentials="include">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Order #</th>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Order Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>{{ order.customer_name|default:"-" }}</td>
+                <td>{{ order.customer_phone|default:"-" }}</td>
+                <td>{{ order.items.count }} items</td>
+                <td>₹{{ order.total_price }}</td>
+                <td>
+                    <span class="status-badge status-{{ order.status }}">
+                        {{ order.get_status_display }}
+                    </span>
+                </td>
+                <td>{{ order.created_at|date:"M j, Y H:i" }}</td>
+                <td>
+                    <select onchange="updateOrderStatus({{ order.id }}, this.value)" class="btn btn-sm">
+                        <option value="">Change Status</option>
+                        {% for status_choice in status_choices %}
+                            {% if status_choice.0 != order.status %}
+                                <option value="{{ status_choice.0 }}">{{ status_choice.1 }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center">No orders found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

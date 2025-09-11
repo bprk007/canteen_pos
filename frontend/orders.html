@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - Campus Canteen</title>
+    <link rel="stylesheet" href="css/manage.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-receipt"></i>
+                    Campus Canteen - Orders
+                </h1>
+                <div class="user-section">
+                    <button id="backBtn" class="back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Manage Menu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="main">
+        <section class="orders-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Orders</h2>
+                </div>
+                <div class="filters">
+                    <select id="statusFilter" class="filter-select">
+                        <option value="">All Orders</option>
+                        <option value="pending">Pending</option>
+                        <option value="preparing">Preparing</option>
+                        <option value="ready">Ready</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="table-container" id="ordersTableContainer" hx-get="http://localhost:8000/api/orders/table/" hx-trigger="load, every 10s" hx-target="#ordersTableContainer" hx-swap="outerHTML" hx-credentials="include">
+                    <!-- Orders table will be loaded here by htmx -->
+                </div>
+            </div>
+        </section>
+    </main>
+    <div id="loadingSpinner" class="loading-overlay">
+        <div class="spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading...</p>
+        </div>
+    </div>
+    <div id="toastContainer" class="toast-container"></div>
+    <script src="js/orders.js"></script>
+</body>
+</html>
